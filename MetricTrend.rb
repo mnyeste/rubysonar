@@ -11,6 +11,8 @@ class MetricTrend
  
   def initialize(startdate, enddate, project, metric, frequency)
 
+    @logger = Log.getLogger()
+    
     @startdate = Date.strptime(startdate,'%Y-%m-%d')
     @enddate = Date.strptime(enddate, '%Y-%m-%d')
     @project = project
@@ -21,7 +23,7 @@ class MetricTrend
 
     @startdate.upto(@enddate) { |date| if date.cwday <= @frequency :  @days[date] = nil end }
 
-    @logger = Log.getLogger()
+    
 
     @logger.debug(inspect)
 
