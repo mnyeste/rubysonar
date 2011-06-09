@@ -17,9 +17,9 @@ class MetricTrend
     @metric = metric
     @frequency = frequency
 
-    @days = Array.new
+    @days = Hash.new
 
-    @startdate.upto(@enddate) { |date| if date.cwday <= @frequency :  @days<<date end }
+    @startdate.upto(@enddate) { |date| if date.cwday <= @frequency :  @days[date] = nil end }
 
     @logger = Log.getLogger()
 
@@ -36,7 +36,7 @@ class MetricTrend
     info<<"Project   : #{@project}\n"
     info<<"Metric    : #{@metric}\n"
     info<<"Frequency : #{@frequency}\n"
-    info<<"Days      : [#{@days.join('; ')}]\n"
+    info<<"Days      : [#{@days.keys.join('; ')}]\n"
     info<<"-"*60+"\n"
 
   end

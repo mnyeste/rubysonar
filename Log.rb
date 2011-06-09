@@ -9,7 +9,7 @@ class Log
     if @@log.nil?
       @@log = Logger.new(STDOUT)
       @@log.formatter = proc { |severity, datetime, progname, msg| "#{severity} - #{datetime}: #{msg}\n" }
-      @@log.level = Logger::INFO
+      @@log.level = Logger::DEBUG
       
     end
 
