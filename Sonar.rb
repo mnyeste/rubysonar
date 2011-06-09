@@ -13,9 +13,9 @@ logger.info("Starting...")
 
 MetricTrend.new('2011-05-01','2011-12-31','com.baxter.pe:price-engine','coverage',MetricTrend::WORKDAY)
 
-#     
-#SonarConnector.new.connect()
-#
+     
+SonarConnector.new.connect()
+
 
 
 
