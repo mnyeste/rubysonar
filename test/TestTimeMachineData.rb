@@ -8,7 +8,7 @@ class TestTimeMachineData < Test::Unit::TestCase
     @logger = Log.getLogger()
   end
 
-  def testparse
+  def test_parse
     testresponse =
     [["date", "coverage"],
       ["2011-05-25T02:05:35+0200", "16.1"],
@@ -31,11 +31,7 @@ class TestTimeMachineData < Test::Unit::TestCase
       Date.strptime("2011-06-02", '%Y-%m-%d') => 17.7
     }
 
-    tmd = TimeMachineData.new
-    tmd.response = testresponse
-    tmd.parse_sonar_response
-
-    actual = tmd.data 
+    actual = TimeMachineData.new(testresponse).data 
     
     assert_equal(true, (actual.keys | expected.keys).all? {|k| actual[k] == expected[k]}, "Parsed data don't match expected")
  

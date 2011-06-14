@@ -4,7 +4,7 @@ require 'Log'
 class MetricTrend
 
   
-  attr_accessor :days
+  attr_reader :days
   
   WEEK = 1
   WORKDAY = 5
@@ -22,24 +22,28 @@ class MetricTrend
     @days = Hash.new
 
     @startdate.upto(@enddate) { |date| if date.cwday <= @frequency :  @days[date] = nil end }
-
-    
-
+     
     @logger.debug(inspect)
 
   end
 
+  def merge(data) 
+    
+  end
+  
   def inspect
 
     info = "\n\nMetric trend object\n"
-    info<<"-"*60+"\n"
+    info<<Log::DELIMITER
     info<<"Start date: #{@startdate}\n"
     info<<"End date  : #{@enddate}\n"
     info<<"Project   : #{@project}\n"
     info<<"Metric    : #{@metric}\n"
     info<<"Frequency : #{@frequency}\n"
-    info<<"Days      : [#{@days.keys.join('; ')}]\n"
-    info<<"-"*60+"\n"
+    info<<"Data begins...\n"
+    @days.sort.each {|day| info<<"[#{day[0]};#{day[1]}]\n"}
+    info<<"Data ends...\n"
+    info<<Log::DELIMITER
 
   end
 

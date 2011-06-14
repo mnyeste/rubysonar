@@ -3,7 +3,9 @@ require 'logger'
 class Log
 
   @@log = nil
-   
+  
+  DELIMITER = "-"*60+"\n"
+     
   def self.getLogger()
 
     if @@log.nil?

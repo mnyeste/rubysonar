@@ -7,7 +7,7 @@ class TestMetricTrend < Test::Unit::TestCase
     @logger = Log.getLogger()
   end
 
-  def test_week
+  def _test_week
     expected = Hash.new
 
     5.times { |week| expected[Date.new(2011, 5 ,2+week*7)] = nil}
@@ -23,7 +23,8 @@ class TestMetricTrend < Test::Unit::TestCase
     assert_equal(0,difference.length,"Day numbers different")
   end
 
-  def test_workday
+  def _test_workday
+
     expected = Hash.new
 
     4.times {|week|  5.times { |day|  expected[Date.new(2011, 5 ,2+week*7+day)] = nil } }
@@ -37,6 +38,11 @@ class TestMetricTrend < Test::Unit::TestCase
     @logger.debug("Difference    : [#{difference.join("; ")}]")
 
     assert_equal(0,difference.length,"Day numbers different")
+  end
+
+  def test_merge
+    mt = MetricTrend.new('2011-05-01','2011-05-31','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)
+    #data = TimeMachineData.new
   end
 
 end
