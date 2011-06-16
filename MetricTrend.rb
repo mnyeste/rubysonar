@@ -37,8 +37,16 @@ class MetricTrend
     while !trenddays.empty?
 
       td = trenddays.shift
+
+      @logger.debug("Processing day  : #{td}")
+      @logger.debug("Current data day: #{datadays.first}")
+
+      while !datadays.empty?&&datadays.first>td
+        @logger.debug("Dropping data on day #{datadays.first}")
+        datadays.shift
+      end
       
-      puts td
+      @trend[td] = data[datadays.first]
       
     end
 
