@@ -1,3 +1,5 @@
+require 'Log'
+
 class TimeMachineData
 
   attr_writer :response
@@ -19,7 +21,7 @@ class TimeMachineData
     @data = Hash.new
 
     @response.delete_at(0)
-    @response = @response.sort
+    @response.sort!
 
     @response.each { |r| @data[Date.parse(r[0])] = r[1].to_f }
 

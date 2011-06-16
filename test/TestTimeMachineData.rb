@@ -1,12 +1,8 @@
 require 'test/unit'
 require 'date'
-require 'Log'
 require 'TimeMachineData'
 
 class TestTimeMachineData < Test::Unit::TestCase
-  def setup
-    @logger = Log.getLogger()
-  end
 
   def test_parse
     testresponse =
@@ -30,12 +26,9 @@ class TestTimeMachineData < Test::Unit::TestCase
       Date.strptime("2011-05-31", '%Y-%m-%d') => 17.4,
       Date.strptime("2011-06-02", '%Y-%m-%d') => 17.7
     }
-
-    actual = TimeMachineData.new(testresponse).data 
-    
-    assert_equal(true, (actual.keys | expected.keys).all? {|k| actual[k] == expected[k]}, "Parsed data don't match expected")
  
-    
+    assert_equal(expected,TimeMachineData.new(testresponse).data,"Parsed data don't match expected")
+         
   end
 
 end

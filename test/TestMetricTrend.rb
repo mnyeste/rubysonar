@@ -1,6 +1,7 @@
 require 'test/unit'
 require 'Log'
 require 'MetricTrend'
+require 'TimeMachineData'
 
 class TestMetricTrend < Test::Unit::TestCase
   def setup
@@ -41,8 +42,25 @@ class TestMetricTrend < Test::Unit::TestCase
   end
 
   def test_merge
-    mt = MetricTrend.new('2011-05-01','2011-05-31','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)
-    #data = TimeMachineData.new
+    
+    response =  [["date", "coverage"],
+    ["2011-05-04T02:05:35+0200", "16.1"],
+    ["2011-05-16T02:09:13+0200", "17.3"],
+    ["2011-05-26T17:10:56+0200", "18.6"]]    
+         
+    expected = {
+     Date.strptime("2011-05-02", '%Y-%m-%d') => nil, 
+     Date.strptime("2011-05-09", '%Y-%m-%d') => 16.1,
+     Date.strptime("2011-05-16", '%Y-%m-%d') => 17.3,
+     Date.strptime("2011-05-23", '%Y-%m-%d') => 17.3,
+     Date.strptime("2011-05-30", '%Y-%m-%d') => 18.6,
+     Date.strptime("2011-06-06", '%Y-%m-%d') => nil
+    }
+      
+    mt = MetricTrend.new('2011-05-01','2011-06-10','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)
+    mt.merge(TimeMachineData.new(response).data,  Date.strptime("2011-06-04", '%Y-%m-%d'))
+    assert_equal(expected,mt.trend,"Merged data is different than expected" )
+    
   end
 
 end
