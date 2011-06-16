@@ -21,6 +21,7 @@ class MetricTrend
 
     @startdate.upto(@enddate) { |date| if date.cwday <= @frequency :  @trend[date] = nil end }
 
+    @logger.debug("Object initialized...")
     @logger.debug(inspect)
 
   end
@@ -45,10 +46,13 @@ class MetricTrend
         @logger.debug("Dropping data on day #{datadays.first}")
         datadays.shift
       end
-      
+
       @trend[td] = data[datadays.first]
-      
+
     end
+
+    @logger.debug("Object merged...")
+    @logger.debug(inspect)
 
   end
 
@@ -62,7 +66,7 @@ class MetricTrend
     info<<"Metric    : #{@metric}\n"
     info<<"Frequency : #{@frequency}\n"
     info<<"Data begins...\n"
-    @trend.sort.each {|day| info<<"[#{day[0]};#{day[1]}]\n"}
+    @trend.sort.each {|day| info<<"[#{day[0]};#{day[1].inspect}]\n"}
     info<<"Data ends...\n"
     info<<Log::DELIMITER
 
