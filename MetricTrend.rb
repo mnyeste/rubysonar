@@ -47,7 +47,10 @@ class MetricTrend
         datadays.shift
         @logger.debug("Datadays length: #{datadays.length}")
       end
-
+      
+      @logger.debug("Datadays first is: #{datadays.first.inspect} #{data[nil]}")
+      
+      
       @trend[td] = data[datadays.first]
 
     end
