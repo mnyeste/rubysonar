@@ -94,7 +94,7 @@ def test_merge_more_data
     expected = {
       Date.strptime("2011-05-09", '%Y-%m-%d') => nil,
       Date.strptime("2011-05-16", '%Y-%m-%d') => 18.6,
-      Date.strptime("2011-05-23", '%Y-%m-%d') => nil
+      Date.strptime("2011-05-23", '%Y-%m-%d') => 18.6
     }
 
     mt = MetricTrend.new('2011-05-09','2011-05-23','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)

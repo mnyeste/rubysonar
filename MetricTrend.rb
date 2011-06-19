@@ -35,22 +35,20 @@ class MetricTrend
     @logger.debug("Find data for days:     [#{trenddays.join(", ")}]")
     @logger.debug("Available data on days: [#{datadays.join(", ")}]")
 
+    
+    
     while !datadays.empty?&&!trenddays.empty?
-
-      td = trenddays.shift
-
+      
+      td = trenddays.shift  
+        
       @logger.debug("Processing day  : #{td}")
       @logger.debug("Current data day: #{datadays.first}")
 
       while !datadays.empty?&&datadays.first>td
         @logger.debug("Dropping data on day #{datadays.first}")
         datadays.shift
-        @logger.debug("Datadays length: #{datadays.length}")
       end
-      
-      @logger.debug("Datadays first is: #{datadays.first.inspect} #{data[nil]}")
-      
-      
+   
       @trend[td] = data[datadays.first]
 
     end
