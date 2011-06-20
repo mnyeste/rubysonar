@@ -31,4 +31,11 @@ class TestTimeMachineData < Test::Unit::TestCase
          
   end
 
+  
+  def test_parse_empty
+  
+      assert_equal({},TimeMachineData.new([["date", "coverage"]]).data,"Parsed data don't match expected")
+           
+    end
+  
 end
