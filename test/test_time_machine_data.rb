@@ -7,6 +7,7 @@ require 'time_machine_data'
 class TestTimeMachineData < Test::Unit::TestCase
 
   FAKE_SERVER="http://localhost"
+  
   def fake_response(response)
     FakeWeb.register_uri(:post, "#{FAKE_SERVER}/api/timemachine", :body => response.join("\n"))
   end
@@ -15,7 +16,7 @@ class TestTimeMachineData < Test::Unit::TestCase
     FakeWeb.clean_registry()
   end
 
-  def test_parse
+  def test_retrieve
 
     expected = {
       Date.strptime("2011-05-25", '%Y-%m-%d') => 16.1,
@@ -44,7 +45,7 @@ class TestTimeMachineData < Test::Unit::TestCase
 
   end
 
-  def test_parse_more_data_one_day
+  def test_retrieve_more_data_one_day
     expected = {
       Date.strptime("2011-05-28", '%Y-%m-%d') => 16.1,
       Date.strptime("2011-05-29", '%Y-%m-%d') => 16.6,
@@ -66,7 +67,7 @@ class TestTimeMachineData < Test::Unit::TestCase
 
   end
 
-  def test_parse_empty
+  def test_retrieve_empty
 
     fake_response(["date,coverage"])
 
@@ -76,4 +77,14 @@ class TestTimeMachineData < Test::Unit::TestCase
 
   end
 
+  def test_retrieve_http_error
+
+    FakeWeb.register_uri(:post, "#{FAKE_SERVER}/api/timemachine", :body => "", :status => [404, "Not Found"])
+
+    tmd = TimeMachineData.new(FAKE_SERVER, "com.baxter.pe:price-engine","coverage")
+    
+    assert_equal(nil,tmd.data,"Data should be nil")
+    
+  end
+  
 end

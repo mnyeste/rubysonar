@@ -6,7 +6,8 @@ class TimeMachineData
   def initialize(serverUrl, project, metric)
     @logger = Log.getLogger()
     retrieve(serverUrl, project, metric)
-    parse
+    if !@response.nil? : parse end
+    
   end
 
   private
@@ -17,8 +18,14 @@ class TimeMachineData
     @logger.info("Retrieving #{metric} metric on #{project}")
     httpresponse = Net::HTTP.post_form(URI.parse(serverUrl+'/api/timemachine'),
                     {'resource' => "#{project}", 'metrics' => "#{metric}", 'format' => 'csv'});
-    @logger.debug("Got HTTP response: #{httpresponse}")
-    @response = CSV.parse(httpresponse.body)
+    @logger.debug("Got HTTP response: #{httpresponse.inspect}")
+   
+    if httpresponse.class == Net::HTTPOK then 
+      @response = CSV.parse(httpresponse.body)
+    else
+      @response = nil
+    end 
+
   end
 
   def parse
