@@ -1,7 +1,7 @@
 require 'test/unit'
-require 'Log'
-require 'MetricTrend'
-require 'TimeMachineData'
+require 'app_log'
+require 'metric_trend'
+require 'time_machine_data'
 
 class TestMetricTrend < Test::Unit::TestCase
   def setup

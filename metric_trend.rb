@@ -1,5 +1,5 @@
 require 'date'
-require 'Log'
+require 'app_log'
 
 class MetricTrend
 

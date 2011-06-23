@@ -1,6 +1,6 @@
 require 'test/unit'
 require 'date'
-require 'TimeMachineData'
+require 'time_machine_data'
 
 class TestTimeMachineData < Test::Unit::TestCase
 

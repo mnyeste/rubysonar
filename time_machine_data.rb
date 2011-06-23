@@ -1,4 +1,4 @@
-require 'Log'
+require 'app_log'
 
 class TimeMachineData
 

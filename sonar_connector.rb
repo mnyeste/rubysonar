@@ -1,7 +1,7 @@
 require 'net/http'
 require 'uri'
 require 'csv'
-require 'Log'
+require 'app_log'
 
 
 class SonarConnector

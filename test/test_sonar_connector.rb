@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'fakeweb'
-require 'SonarConnector'
-require 'Log'
+require 'sonar_connector'
+require 'app_log'
 
 class TestSonarConnector < Test::Unit::TestCase
   def setup
