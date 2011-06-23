@@ -13,6 +13,18 @@ class TimeMachineData
     parse_sonar_response()
   end
 
+  def retrieve_time_machine_data(project, metric)
+    
+    @logger.info("Retrieving #{metric} metric on #{project}")
+    httpresponse = Net::HTTP.post_form(URI.parse(@serverUrl+'/api/timemachine'),
+    {'resource' => "#{project}", 'metrics' => "#{metric}", 'format' => 'csv'});
+    @logger.debug("Got HTTP response: #{httpresponse}")
+    @response = CSV.parse(httpresponse.body)
+    @logger.debug("Response body parsed: #{@resopnse.inspect}")
+  
+    parse_sonar_response
+  end
+  
   private
   def parse_sonar_response
 

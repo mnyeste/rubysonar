@@ -59,7 +59,7 @@ class MetricTrend
   end
 
   def collect_data(sonar)
-    self.merge(sonar.retrieve_time_machine_data(@project,@metric))
+  
   end
   
   def inspect
