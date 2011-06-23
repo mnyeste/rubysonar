@@ -21,6 +21,7 @@ class MetricTrend
 
     @startdate.upto(@enddate) { |date| if date.cwday <= @frequency :  @trend[date] = nil end }
 
+    @logger.info("Creating metric trend for #{metric} on #{project} from #{startdate} to #{enddate}")
     @logger.debug("Object initialized...")
     @logger.debug(inspect)
 
@@ -57,6 +58,10 @@ class MetricTrend
 
   end
 
+  def collect_data(sonar)
+    self.merge(sonar.retrieve_time_machine_data(@project,@metric))
+  end
+  
   def inspect
 
     info = "\n\nMetric trend object\n"
