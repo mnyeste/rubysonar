@@ -2,7 +2,6 @@ require 'app_log'
 
 class TimeMachineData
 
-  #attr_writer :response
   attr_reader :data
   def initialize(serverUrl, project, metric)
     @logger = Log.getLogger()
