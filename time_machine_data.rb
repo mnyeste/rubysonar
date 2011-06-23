@@ -4,14 +4,10 @@ class TimeMachineData
 
   #attr_writer :response
   attr_reader :data
-  def initialize(serverUrl=nil, project=nil, metric =nil)
+  def initialize(serverUrl, project, metric)
     @logger = Log.getLogger()
-
-    if !serverUrl.nil? then
-      retrieve(serverUrl, project, metric)
-      parse
-    end
-
+    retrieve(serverUrl, project, metric)
+    parse
   end
 
   private
@@ -21,11 +17,9 @@ class TimeMachineData
 
     @logger.info("Retrieving #{metric} metric on #{project}")
     httpresponse = Net::HTTP.post_form(URI.parse(serverUrl+'/api/timemachine'),
-    {'resource' => "#{project}", 'metrics' => "#{metric}", 'format' => 'csv'});
+                    {'resource' => "#{project}", 'metrics' => "#{metric}", 'format' => 'csv'});
     @logger.debug("Got HTTP response: #{httpresponse}")
     @response = CSV.parse(httpresponse.body)
-    @logger.debug("Response body parsed: #{@response.inspect}")
-    parse
   end
 
   def parse
