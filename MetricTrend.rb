@@ -25,7 +25,7 @@ class MetricTrend
     @logger.debug(inspect)
 
   end
-
+  
   def merge(data, end_date =  Date.today)
     @logger.debug("Merging data, end date is #{end_date}")
 
@@ -34,8 +34,7 @@ class MetricTrend
 
     @logger.debug("Find data for days:     [#{trenddays.join(", ")}]")
     @logger.debug("Available data on days: [#{datadays.join(", ")}]")
-
-    
+   
     
     while !datadays.empty?&&!trenddays.empty?
       
