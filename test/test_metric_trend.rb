@@ -19,7 +19,7 @@ class TestMetricTrend < Test::Unit::TestCase
 
     5.times { |week| expected[Date.new(2011, 5 ,2+week*7)] = nil}
 
-    mt = MetricTrend.new('2011-05-01','2011-05-31','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)
+    mt = MetricTrend.new('server','2011-05-01','2011-05-31','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)
 
     difference = (mt.trend.keys - expected.keys) | (expected.keys - mt.trend.keys)
 
@@ -36,7 +36,7 @@ class TestMetricTrend < Test::Unit::TestCase
 
     4.times {|week|  5.times { |day|  expected[Date.new(2011, 5 ,2+week*7+day)] = nil } }
 
-    mt = MetricTrend.new('2011-05-01','2011-05-29','com.baxter.pe:price-engine','coverage',MetricTrend::WORKDAY)
+    mt = MetricTrend.new('server','2011-05-01','2011-05-29','com.baxter.pe:price-engine','coverage',MetricTrend::WORKDAY)
 
     difference = (mt.trend.keys - expected.keys) | (expected.keys - mt.trend.keys)
 
@@ -64,7 +64,7 @@ class TestMetricTrend < Test::Unit::TestCase
       format_date("2011-06-06") => nil
     }
 
-    mt = MetricTrend.new('2011-04-25','2011-06-10','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)
+    mt = MetricTrend.new('server','2011-04-25','2011-06-10','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)
     mt.merge(time_machine_data,  Date.strptime("2011-06-04", '%Y-%m-%d'))
     assert_equal(expected,mt.trend,"Merged data is different than expected" )
 
@@ -83,7 +83,7 @@ class TestMetricTrend < Test::Unit::TestCase
       Date.strptime("2011-06-06", '%Y-%m-%d') => nil
     }
 
-    mt = MetricTrend.new('2011-04-25','2011-06-10','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)
+    mt = MetricTrend.new('server','2011-04-25','2011-06-10','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)
     mt.merge(time_machine_data,  Date.strptime("2011-06-04", '%Y-%m-%d'))
     assert_equal(expected,mt.trend,"Merged data is different than expected" )
 
@@ -104,7 +104,7 @@ def test_merge_more_data
       Date.strptime("2011-05-23", '%Y-%m-%d') => 18.6
     }
 
-    mt = MetricTrend.new('2011-05-09','2011-05-23','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)
+    mt = MetricTrend.new('server','2011-05-09','2011-05-23','com.baxter.pe:price-engine','coverage',MetricTrend::WEEK)
     mt.merge(time_machine_data,  Date.strptime("2011-06-04", '%Y-%m-%d'))
     assert_equal(expected,mt.trend,"Merged data is different than expected" )
 

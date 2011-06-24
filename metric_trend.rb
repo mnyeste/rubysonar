@@ -7,10 +7,11 @@ class MetricTrend
 
   WEEK = 1
   WORKDAY = 5
-  def initialize(startdate, enddate, project, metric, frequency)
+  def initialize(source, startdate, enddate, project, metric, frequency)
 
     @logger = Log.getLogger()
 
+    @source = source
     @startdate = Date.strptime(startdate,'%Y-%m-%d')
     @enddate = Date.strptime(enddate, '%Y-%m-%d')
     @project = project
@@ -58,7 +59,7 @@ class MetricTrend
 
   end
 
-  def collect_data(sonar)
+  def collect_data()
   
   end
   
