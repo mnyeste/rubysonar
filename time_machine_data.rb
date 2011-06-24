@@ -7,7 +7,7 @@ class TimeMachineData
     @logger = Log.getLogger()
     retrieve(serverUrl, project, metric)
     if !@response.nil? : parse end
-    
+
   end
 
   private
@@ -15,16 +15,26 @@ class TimeMachineData
 
   def retrieve(serverUrl, project, metric)
 
-    @logger.info("Retrieving #{metric} metric on #{project}")
-    httpresponse = Net::HTTP.post_form(URI.parse(serverUrl+'/api/timemachine'),
-                    {'resource' => "#{project}", 'metrics' => "#{metric}", 'format' => 'csv'});
-    @logger.debug("Got HTTP response: #{httpresponse.inspect}")
-   
-    if httpresponse.class == Net::HTTPOK then 
-      @response = CSV.parse(httpresponse.body)
-    else
+    @logger.info("Retrieving #{metric} metric on #{project} from #{serverUrl}")
+
+    begin
+
+      httpresponse = Net::HTTP.post_form(URI.parse(serverUrl+'/api/timemachine'),
+      {'resource' => "#{project}", 'metrics' => "#{metric}", 'format' => 'csv'});
+
+      @logger.debug("Got HTTP response: #{httpresponse.inspect}")
+
+      if httpresponse.class == Net::HTTPOK then
+        @response = CSV.parse(httpresponse.body)
+      else
+        @logger.info("Response is not HTTP 200: #{httpresponse.inspect}")
+        @response = nil
+      end
+
+    rescue
+      @logger.info("Failed to connect server: #{serverUrl}")
       @response = nil
-    end 
+    end
 
   end
 

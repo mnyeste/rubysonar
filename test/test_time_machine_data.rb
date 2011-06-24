@@ -77,11 +77,20 @@ class TestTimeMachineData < Test::Unit::TestCase
 
   end
 
-  def test_retrieve_http_error
+  def test_retrieve_http_failure
 
     FakeWeb.register_uri(:post, "#{FAKE_SERVER}/api/timemachine", :body => "", :status => [404, "Not Found"])
 
     tmd = TimeMachineData.new(FAKE_SERVER, "com.baxter.pe:price-engine","coverage")
+    
+    assert_equal(nil,tmd.data,"Data should be nil")
+    
+  end
+  
+  
+def test_retrieve_http_error
+
+    tmd = TimeMachineData.new("http://not.exist", "com.baxter.pe:price-engine","coverage")
     
     assert_equal(nil,tmd.data,"Data should be nil")
     
