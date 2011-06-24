@@ -1,7 +1,6 @@
 require 'test/unit'
 require 'date'
 require 'fakeweb'
-require 'csv'
 require 'time_machine_data'
 
 class TestTimeMachineData < Test::Unit::TestCase

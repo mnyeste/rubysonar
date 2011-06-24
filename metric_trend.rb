@@ -1,5 +1,6 @@
 require 'date'
 require 'app_log'
+require 'time_machine_data'
 
 class MetricTrend
 
@@ -60,7 +61,8 @@ class MetricTrend
   end
 
   def collect_data()
-  
+    tmd = TimeMachineData.new(@source,@project,@metric)
+    self.merge(tmd.data)
   end
   
   def inspect

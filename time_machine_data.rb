@@ -1,4 +1,6 @@
 require 'app_log'
+require 'net/http'
+require 'csv'
 
 class TimeMachineData
 
@@ -31,8 +33,10 @@ class TimeMachineData
         @response = nil
       end
 
-    rescue
-      @logger.info("Failed to connect server: #{serverUrl}")
+    rescue Exception => e
+      @logger.fatal("Failed to connect server: #{serverUrl}")
+      @logger.fatal(e.message)  
+      @logger.fatal(e.backtrace.join("\n"))  
       @response = nil
     end
 
